@@ -7,7 +7,7 @@ const Header = () => {
     onClick={() => {
         navigate('/')
     }}
-    className="inter-font text-2xl">
+    className="inter-font text-2xl lg:text-3xl">
      STUDY<b>table</b>
      </h1>
   )

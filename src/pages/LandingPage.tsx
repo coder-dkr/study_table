@@ -6,10 +6,10 @@ import PseudoFooter from "@/components/PseudoFooter";
 
 const LandingPage = () => {
   return (
-   <div className="space-y-20 overflow-hidden">
+   <div className="space-y-20 md:space-y-28 lg:space-y-44 overflow-hidden">
      <Hero />
-     <InfoContent />
      <PracticeBox />
+     <InfoContent />
      <FAQs />
      <PseudoFooter />
    </div>

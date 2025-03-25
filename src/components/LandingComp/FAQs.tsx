@@ -18,8 +18,8 @@ const FAQs = () => {
   };
 
   return (
-    <div className="px-6.5 space-y-6">
-      <h2 className="text-[#155DFC] font-bold text-xl text-center instrument-sans-font">
+    <div className="px-6.5 space-y-6 max-w-xl lg:max-w-[90rem] lg:space-y-16 mx-auto">
+      <h2 className="text-[#155DFC] font-bold text-xl lg:text-[48px] text-center instrument-sans-font">
         Frequently Asked Questions
       </h2>
 
@@ -29,7 +29,7 @@ const FAQs = () => {
             <button
               type="button"
               onClick={toggleAccordian}
-              className="flex w-full items-center text-left justify-between font-medium text-[13px] py-2.5"
+              className="flex w-full items-center text-left justify-between font-medium outline-0 text-[13px] py-3 lg:py-4 lg:text-[22px]"
             >
               {faq.question}
               <img
@@ -38,7 +38,7 @@ const FAQs = () => {
                 alt="arrow"
               />
             </button>
-            <p className="hidden text-[#7B7B7B] text-left text-sm instrument-sans-font leading-[139%] pb-3 duration-150">
+            <p className="hidden text-[#7B7B7B] text-left text-sm instrument-sans-font leading-[139%] pb-3 duration-150 lg:text-[22px] lg:leading-[34px]">
               {faq.answer}
             </p>
           </div>
