@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements ,Route } from 'react-router-dom'
 import Layout from '../Layout'
-import { LandingPage , NoticeBoard} from '../pages'
+import { LandingPage , NoticeBoard , BlogPage} from '../pages'
 
 
  const router = createBrowserRouter(
@@ -9,6 +9,7 @@ import { LandingPage , NoticeBoard} from '../pages'
      <Route path="/" element={<Layout />}>
         <Route path="" element={<LandingPage />} />
         <Route path="/notice-board" element={<NoticeBoard />} />
+        <Route path="/blog" element={<BlogPage />} />
      </Route>
     </>
   )

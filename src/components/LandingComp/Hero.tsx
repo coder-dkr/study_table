@@ -1,14 +1,13 @@
 import BlueButton from "@/components/ui/BlueButton";
+import Header from "../Header";
 
-const Header = () => {
+const Hero = () => {
   return (
     <header className="relative">
-      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-2xl -left-10 -top-4 " />
-      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-2xl -right-10 -bottom-4 " />
+      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-[50px] -left-10 -top-4 " />
+      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-[50px] -right-10 -bottom-4 " />
       <div className="container mx-auto flex flex-col items-center py-9 px-6 gap-y-16">
-        <h1 className="inter-font text-xl">
-          STUDY<b>table</b>
-        </h1>
+        <Header/>
 
         <div>
           <h2 className="text-center instrument-sans-font text-3xl font-semibold">
@@ -37,4 +36,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Hero;

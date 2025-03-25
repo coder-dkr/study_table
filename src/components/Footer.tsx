@@ -1,17 +1,21 @@
 import { IoLogoInstagram } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "motion/react"
+import { Link, useNavigate } from "react-router-dom";
 
 function Footer() {
+
+  const navigate = useNavigate()
+
   return (
     <footer className="bg-[#070707] flex items-center justify-center py-7 text-white">
       <div className="w-full mx-5 max-w-[74rem] flex flex-col lg:flex-row justify-between gap-7 items-start lg:items-start">
         
         <div>
             <h1 className="inter-font text-3xl sm:text-[2.5rem] text-[#A3A3A3]">
-          <a href="/">
+          <Link to="/">
             STUDY<span className="font-semibold">table</span>
-          </a>
+          </Link>
         </h1>
         <p className="text-sm instrument-sans-font text-[#A3A3A3] font-normal">© Copyright 2025 Studytable</p>
         </div>
@@ -21,6 +25,9 @@ function Footer() {
           whileHover={{
             rotate : 2,
             scale : 1.05
+          }}
+          onClick={()=>{
+            navigate('/notice-board')
           }}
           className="bg-white flex items-center gap-2 px-5 py-2">
             <img alt="pin" src="/svgs/pin.svg" />

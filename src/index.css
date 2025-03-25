@@ -5,12 +5,12 @@
 
 
 .inter-font {
-  font-family: "Inter", sans-serif;
+  font-family: "Inter",;
   font-optical-sizing: auto;
 }
 
 .instrument-sans-font {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: "Instrument Sans",;
   font-optical-sizing: auto;
   font-variation-settings:
     "wdth" 100;
@@ -19,6 +19,23 @@
 button {
   cursor: pointer;
 }
+.ol-list {
+  list-style: none; 
+  counter-reset: list-counter;
+}
+
+.ol-list li {
+  counter-increment: list-counter;
+}
+
+.roman-list li::before {
+  content: counter(list-counter, upper-roman) ". ";
+}
+.num-list li::before {
+  content: counter(list-counter) ". ";
+}
+
+
 
 ::selection {
   color : rgb(176, 222, 255);
