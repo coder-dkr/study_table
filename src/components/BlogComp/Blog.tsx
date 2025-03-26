@@ -1,9 +1,9 @@
 const Blog = () => {
   return (
     <>
-        <div id="blog-1" className="space-y-9">
-        <section id="BlogTitle-Product_strategy" className="space-y-9">
-            <h2 className="text-center text-2xl font-semibold inter-font">
+        <div id="blog-1" className="space-y-9 max-w-xl lg:max-w-2xl">
+        <section id="Blog_Product" className="space-y-9">
+            <h2 className="text-center text-2xl lg:text-[28px] font-semibold inter-font">
             Product strategy
             </h2>
             <div className="instrument-sans-font font-light text-lg space-y-8">
@@ -34,8 +34,8 @@ const Blog = () => {
             </div>
         </section>
 
-        <section id="BlogTitle-By_Learning" className="space-y-9">
-            <h2 className="text-center text-2xl font-semibold inter-font">
+        <section id="Blog_Learning" className="space-y-9">
+            <h2 className="text-center text-2xl lg:text-[28px]  font-semibold inter-font">
             By Learning
             </h2>
             <div className="instrument-sans-font font-light text-lg space-y-8">
@@ -102,8 +102,8 @@ const Blog = () => {
             </div>
         </section>
 
-        <section id="BlogTitle-By_Assessing" className="space-y-9">
-            <h2 className="text-center text-2xl font-semibold inter-font">
+        <section id="Blog_Assessing" className="space-y-9">
+            <h2 className="text-center text-2xl lg:text-[28px] font-semibold inter-font">
             By Assessing
             </h2>
             <div className="instrument-sans-font font-light text-lg space-y-8">
@@ -150,8 +150,8 @@ const Blog = () => {
             </div>
         </section>
 
-        <section id="BlogTitle-By_managing" className="space-y-9">
-            <h2 className="text-center text-2xl font-semibold inter-font">
+        <section id="Blog_Managing" className="space-y-9">
+            <h2 className="text-center text-2xl lg:text-[28px]lg:text-[28px] font-semibold inter-font">
             By managing
             </h2>
             <div className="instrument-sans-font font-light text-lg space-y-8">

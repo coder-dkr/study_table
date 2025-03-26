@@ -1,4 +1,6 @@
 import NoticeCard from "./NoticeCard";
+import { notice } from "@/constants/Notices"
+
 
 const NoticeFilters = () => {
   return (
@@ -24,8 +26,8 @@ const NoticeFilters = () => {
       </div>
 
       <div className="space-y-8 mt-12 max-w-xl mx-auto">
-        {[1, 2, 3].map((item: number) => (
-          <NoticeCard key={item} />
+        {notice.map((item) => (
+          <NoticeCard key={item.id} notice={item} />
         ))}
       </div>
     </div>

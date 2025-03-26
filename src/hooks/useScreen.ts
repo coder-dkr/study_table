@@ -4,6 +4,7 @@ type ScreenSize = {
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
+  isLargest: boolean;
 };
 
 const useScreen = (): ScreenSize => {
@@ -11,6 +12,7 @@ const useScreen = (): ScreenSize => {
     isMobile: window.innerWidth < 768,
     isTablet: window.innerWidth >= 768 && window.innerWidth < 1024,
     isDesktop: window.innerWidth >= 1024,
+    isLargest: window.innerWidth >= 1500,
   });
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const useScreen = (): ScreenSize => {
         isMobile: window.innerWidth < 768,
         isTablet: window.innerWidth >= 768 && window.innerWidth < 1024,
         isDesktop: window.innerWidth >= 1024,
+        isLargest: window.innerWidth >= 1500,
       });
     };
 

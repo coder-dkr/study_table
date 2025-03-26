@@ -1,7 +1,9 @@
 import BlueButton from "@/components/ui/BlueButton";
 import Header from "../Header";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate =  useNavigate()
   return (
     <header className="relative">
       <div className="absolute -z-1 w-48 h-48 lg:w-80 lg:h-80 bg-blue-100 blur-[50px] lg:blur-[70px] -left-10 -top-4 " />
@@ -27,8 +29,12 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col md:flex-row md:gap-16 items-center gap-7">
-          <BlueButton text="Apply for admission" />
-          <button className="underline text-[#155DFC] text-lg inter-font font-normal">
+          <BlueButton 
+          onClick={() => navigate('/sign-up')}
+          text="Apply for admission" />
+          <button 
+          onClick={() => navigate('/sign-in')}
+          className="underline text-[#155DFC] text-lg inter-font font-normal">
             Sign In -&gt;
           </button>
         </div>
