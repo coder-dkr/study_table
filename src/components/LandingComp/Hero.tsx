@@ -1,5 +1,6 @@
 import BlueButton from "@/components/ui/BlueButton";
 import Header from "../Header";
+import {motion} from 'motion/react'
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -32,11 +33,14 @@ const Hero = () => {
           <BlueButton 
           onClick={() => navigate('/sign-up')}
           text="Apply for admission" />
-          <button 
+          <motion.button 
+           whileHover={{
+            fontWeight: "600",
+          }}
           onClick={() => navigate('/sign-in')}
           className="underline text-[#155DFC] text-lg inter-font font-normal">
             Sign In -&gt;
-          </button>
+          </motion.button>
         </div>
       </div>
     </header>
