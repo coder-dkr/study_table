@@ -139,6 +139,7 @@ const TypingIndicator = ({ isBot }: { isBot: boolean }) => {
   );
 };
 
+
 export function ChatBoxDemo({ className }: { className?: string }) {
   const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -148,32 +149,25 @@ export function ChatBoxDemo({ className }: { className?: string }) {
     if (currentIndex < initialMessages.length) {
       const nextMessage = initialMessages[currentIndex];
       const isBot = nextMessage.sender === "bot";
-      
-      // Show typing indicator for the appropriate sender
-      setTypingState(isBot ? "bot" : "user");
 
+      setTypingState(isBot ? "bot" : "user");
+      
       const typingTimer = setTimeout(() => {
         setTypingState(null);
         
         const messageTimer = setTimeout(() => {
-          const newMessages = [...visibleMessages, nextMessage];
+          // Add new message
+          const newMessages = [...visibleMessages, initialMessages[currentIndex]];
+          // Keep only the last 3 messages
           const updatedMessages = newMessages.slice(-3);
           setVisibleMessages(updatedMessages);
           setCurrentIndex(prev => prev + 1);
-        }, 500);
+        }, 500); // Short delay after typing completes
 
         return () => clearTimeout(messageTimer);
-      }, nextMessage.delay || 1500);
+      }, initialMessages[currentIndex].delay || 1500);
 
       return () => clearTimeout(typingTimer);
-    } else {
-      // Restart the conversation after 8 seconds
-      const restartTimer = setTimeout(() => {
-        setVisibleMessages([]);
-        setCurrentIndex(0);
-      }, 8000);
-
-      return () => clearTimeout(restartTimer);
     }
   }, [currentIndex, visibleMessages]);
 
