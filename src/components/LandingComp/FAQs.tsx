@@ -18,8 +18,8 @@ const FAQs = () => {
   };
 
   return (
-    <div className="px-6.5 space-y-6 max-w-xl lg:max-w-[90rem] lg:space-y-16 mx-auto">
-      <h2 className="text-[#155DFC] font-bold text-xl lg:text-[48px] text-center instrument-sans-font">
+    <div className="px-6.5 space-y-16 min-h-[100vh] flex flex-col justify-center  max-w-xl lg:max-w-[90rem] mx-auto page_section">
+      <h2 className="text-[#155DFC] font-bold text-2xl lg:text-[48px] text-center instrument-sans-font">
         Frequently Asked Questions
       </h2>
 

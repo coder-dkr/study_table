@@ -7,7 +7,7 @@ interface InfoContentProps {
   id: number;
   title: string | JSX.Element;
   content: string | JSX.Element;
-  image_url: string;
+  component: JSX.Element;
 }
 
 const InfoContent = () => {
@@ -15,20 +15,28 @@ const InfoContent = () => {
   const {isDesktop} = useScreen()
 
   return (
-    <section className="px-6 max-w-xl lg:max-w-[90rem] mx-auto space-y-12 lg:space-y-32">
+    <section className="px-6 max-w-xl lg:max-w-[90rem] mx-auto space-y-12 lg:space-y-32 page_section">
       {MainInfoContent.map((info: InfoContentProps, index : number) => (
-        <div key={info.id} className={`lg:flex ${index % 2 !== 0 && 'flex-row-reverse'} lg:items-start lg:justify-between`}>
+        <div key={info.id} className={`lg:flex ${index % 2 !== 0 && 'flex-row-reverse'} lg:items-center lg:justify-between`}>
          <div className="text-left space-y-5">
          <h2 className="text-[22px] lg:text-4xl font-semibold instrument-sans-font">
             {info.title}
           </h2>
-          {!isDesktop && <img src={info.image_url} alt="infosvg" />}
+          {!isDesktop && 
+          <div className="h-[300px] w-[500px]">
+              {info.component}
+          </div>
+          }
           <p className="text-[#7B7B7B] text-sm leading-[20.94px] lg:leading-8.5 font-normal instrument-sans-font lg:text-[22px] lg:max-w-xl">
             {info.content}
           </p>
          </div>
 
-         {isDesktop && <img src={info.image_url} alt="infosvg" />}
+         {isDesktop && 
+        <div className="h-[300px] w-[500px]">
+          {info.component}
+         </div>
+         }
         </div>
       ))}
 

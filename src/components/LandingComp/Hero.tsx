@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 const Hero = () => {
   const navigate =  useNavigate()
   return (
-    <header className="relative">
+    <header className="relative min-h-screen flex justify-center page_section">
       <div className="absolute -z-1 w-48 h-48 lg:w-80 lg:h-80 bg-blue-100 blur-[50px] lg:blur-[70px] -left-10 -top-4 " />
       <div className="absolute -z-1 w-48 h-48 lg:w-80 lg:h-80 bg-blue-100 blur-[50px] lg:blur-[70px] -right-10 bottom-0 " />
-      <div className="container mx-auto flex flex-col items-center py-9 px-6 pb-3 gap-y-16">
-        <Header/>
+      <div className="absolute mx-auto flex flex-col items-center py-9 px-6 pb-3 gap-y-16">
+      <Header/>
+      </div>
+      <div className="container mx-auto flex flex-col items-center py-9 px-6 pb-3 gap-y-16 justify-center">
 
         <div className="space-y-6">
           <h2 className="text-center instrument-sans-font text-3xl md:text-[32px] lg:text-[3.5rem] font-semibold">
