@@ -12,6 +12,7 @@ export interface OrbitingCirclesProps
   path?: boolean;
   iconSize?: number;
   speed?: number;
+  willRotate? :boolean
 }
 
 const OrbitingCircles = memo(({
@@ -21,6 +22,7 @@ const OrbitingCircles = memo(({
   duration = 20,
   radius = 160,
   path = true,
+  willRotate = false,
   speed = 1,
   ...props
 }: OrbitingCirclesProps) => {
@@ -64,7 +66,8 @@ const OrbitingCircles = memo(({
             } as React.CSSProperties
           }
           className={cn(
-            `absolute flex size-[var(--icon-size)] transform-gpu animate-orbit items-center justify-center rounded-full`,
+            `absolute flex items-center justify-center rounded-full`,
+            willRotate ? "transform-gpu animate-orbit" : null,
             { "[animation-direction:reverse]": reverse },
             className,
           )}
@@ -73,7 +76,7 @@ const OrbitingCircles = memo(({
           {child}
         </div>
       );
-    }), [childrenArray, childrenCount, calculatedDuration, radius, reverse, className, props]);
+    }), [childrenArray, childrenCount, calculatedDuration, radius, reverse, className,willRotate, props]);
 
   return (
     <>
