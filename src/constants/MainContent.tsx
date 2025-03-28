@@ -7,7 +7,7 @@ const MainInfoContent = [
         "id" : 1,
         "title" : <>Unlimited <span className="text-[#155DFC]">Practice</span> session</>,
         "content": <>For topics and subjects you go through in your school and coaching every day, we create instant practice session specially made for your days need. <span className="font-semibold">Our innovative AI algorithm crafts batches of 20 questions, each accompanied by instant feedback and solutions - it's like having a Home tutor 24X7.</span></>,
-       "component": <ChatBoxDemo className="h-[300px]" />
+       "component": <ChatBoxDemo />
     },
     {
         "id" : 2,
