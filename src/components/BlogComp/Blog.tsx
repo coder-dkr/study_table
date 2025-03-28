@@ -1,7 +1,17 @@
+import { useNavigate } from "react-router-dom";
+import BlueButton from "../ui/BlueButton";
+
 const Blog = () => {
+    const navigate = useNavigate()
   return (
     <>
         <div id="blog-1" className="space-y-9 max-w-xl lg:max-w-2xl">
+        <div className="absolute right-60 top-28">
+      <BlueButton
+            onClick={() => navigate("/sign-up")}
+            text="Apply for admission"
+          />
+      </div>
         <section id="Blog_Product" className="space-y-9">
             <h2 className="text-center text-2xl lg:text-[28px] font-semibold inter-font">
             Product strategy

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import BlueButton from "@/components/ui/BlueButton";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [signinForm, setSigninForm] = useState({
@@ -22,10 +23,10 @@ const SignIn = () => {
   }
 
   return (
-    <div className="px-6 py-9 flex flex-col items-center justify-center w-full min-h-[60vh]">
+    <div className="px-6 py-9 flex flex-col items-center justify-center w-full">
       <Header />
 
-      <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl relative">
+      <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl relative min-h-[100vh]">
 
         <div className="flex flex-col items-start w-full relative">
           <input
@@ -81,6 +82,9 @@ const SignIn = () => {
                 text="Sign In"
               />
         </div>
+        <p>
+          Don't have an account ? <Link to="/sign-up" className="text-blue-500" >Sign Up </Link>
+        </p>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import BlueButton from "@/components/ui/BlueButton";
 import LightBlueButton from "@/components/ui/LightBlueButton";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [signupForm, setSignupForm] = useState({
@@ -63,10 +64,10 @@ const SignUp = () => {
   }
 
   return (
-    <div className="px-6 py-9 flex flex-col items-center justify-center w-full min-h-[60vh]">
+    <div className="px-6 py-9 flex flex-col items-center justify-center w-full">
       <Header />
 
-      <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl">
+      <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl min-h-[100vh]">
         <div className="flex flex-col items-start w-full relative">
           <input
             id={FormSteps[currentIndex].id}
@@ -121,6 +122,9 @@ const SignUp = () => {
           }
           </div>
         </div>
+        <p className="mt-10">
+         Already have an account ? <Link to="/sign-in" className="text-blue-500" >Sign In </Link>
+        </p>
       </div>
     </div>
   );
