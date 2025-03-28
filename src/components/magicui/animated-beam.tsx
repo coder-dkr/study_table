@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { RefObject, useEffect, useId, useState } from "react";
+import { motion } from "motion/react";
+import { RefObject, useEffect, useId, useState, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 export interface AnimatedBeamProps {
@@ -24,6 +24,7 @@ export interface AnimatedBeamProps {
   endYOffset?: number;
   sameLevelCurve?: boolean;
   sameLevelThreshold?: number;
+  showLight? : boolean
 }
 
 export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
@@ -46,69 +47,105 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   endYOffset = 0,
   sameLevelCurve = false,
   sameLevelThreshold = 10,
+  showLight = false,
 }) => {
   const id = useId();
   const [pathD, setPathD] = useState("");
   const [svgDimensions, setSvgDimensions] = useState({ width: 0, height: 0 });
+  const [isInView, setIsInView] = useState(false);
 
-  // Calculate the gradient coordinates based on the reverse prop
-  const gradientCoordinates = reverse
-    ? {
-        x1: ["90%", "-10%"],
-        x2: ["100%", "0%"],
-        y1: ["0%", "0%"],
-        y2: ["0%", "0%"],
+  // Check if the component is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.5, 
+        rootMargin: "0px 0px -20% 0px", 
       }
-    : {
-        x1: ["10%", "110%"],
-        x2: ["0%", "100%"],
-        y1: ["0%", "0%"],
-        y2: ["0%", "0%"],
-      };
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [containerRef]);
+
+  // Memoize gradient coordinates
+  const gradientCoordinates = useMemo(() => 
+    reverse
+      ? {
+          x1: ["90%", "-10%"],
+          x2: ["100%", "0%"],
+          y1: ["0%", "0%"],
+          y2: ["0%", "0%"],
+        }
+      : {
+          x1: ["10%", "110%"],
+          x2: ["0%", "100%"],
+          y1: ["0%", "0%"],
+          y2: ["0%", "0%"],
+        },
+    [reverse]
+  );
+
+  // Memoize the updatePath function
+  const updatePath = useCallback(() => {
+    if (containerRef.current && fromRef.current && toRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const rectA = fromRef.current.getBoundingClientRect();
+      const rectB = toRef.current.getBoundingClientRect();
+
+      const svgWidth = containerRect.width;
+      const svgHeight = containerRect.height;
+      setSvgDimensions({ width: svgWidth, height: svgHeight });
+
+      const startX =
+        rectA.left - containerRect.left + rectA.width / 2 + startXOffset;
+      const startY =
+        rectA.top - containerRect.top + rectA.height / 2 + startYOffset;
+      const endX =
+        rectB.left - containerRect.left + rectB.width / 2 + endXOffset;
+      const endY =
+        rectB.top - containerRect.top + rectB.height / 2 + endYOffset;
+
+      // Calculate if elements are at roughly the same level
+      const isSameLevel = Math.abs(startY - endY) < sameLevelThreshold;
+      
+      // Calculate the vertical direction (1 = downward, -1 = upward)
+      const verticalDirection = startY < endY ? 1 : -1;
+
+      let controlY;
+      if (isSameLevel && !sameLevelCurve) {
+        // Straight line for same level when sameLevelCurve is false
+        controlY = startY;
+      } else {
+        // Apply curvature based on direction
+        const curveMultiplier = isSameLevel ? 0.5 : 1;
+        controlY = (startY + endY) / 2 + curvature * verticalDirection * curveMultiplier;
+      }
+
+      const d = `M ${startX},${startY} Q ${
+        (startX + endX) / 2
+      },${controlY} ${endX},${endY}`;
+      setPathD(d);
+    }
+  }, [
+    containerRef,
+    fromRef,
+    toRef,
+    startXOffset,
+    startYOffset,
+    endXOffset,
+    endYOffset,
+    curvature,
+    sameLevelCurve,
+    sameLevelThreshold,
+  ]);
 
   useEffect(() => {
-    const updatePath = () => {
-      if (containerRef.current && fromRef.current && toRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const rectA = fromRef.current.getBoundingClientRect();
-        const rectB = toRef.current.getBoundingClientRect();
-
-        const svgWidth = containerRect.width;
-        const svgHeight = containerRect.height;
-        setSvgDimensions({ width: svgWidth, height: svgHeight });
-
-        const startX =
-          rectA.left - containerRect.left + rectA.width / 2 + startXOffset;
-        const startY =
-          rectA.top - containerRect.top + rectA.height / 2 + startYOffset;
-        const endX =
-          rectB.left - containerRect.left + rectB.width / 2 + endXOffset;
-        const endY =
-          rectB.top - containerRect.top + rectB.height / 2 + endYOffset;
-
-        // Calculate if elements are at roughly the same level
-        const isSameLevel = Math.abs(startY - endY) < sameLevelThreshold;
-        
-        // Calculate the vertical direction (1 = downward, -1 = upward)
-        const verticalDirection = startY < endY ? 1 : -1;
-
-        let controlY;
-        if (isSameLevel && !sameLevelCurve) {
-          // Straight line for same level when sameLevelCurve is false
-          controlY = startY;
-        } else {
-          // Apply curvature based on direction
-          const curveMultiplier = isSameLevel ? 0.5 : 1;
-          controlY = (startY + endY) / 2 + curvature * verticalDirection * curveMultiplier;
-        }
-
-        const d = `M ${startX},${startY} Q ${
-          (startX + endX) / 2
-        },${controlY} ${endX},${endY}`;
-        setPathD(d);
-      }
-    };
-
     // Initialize ResizeObserver and MutationObserver
     const resizeObserver = new ResizeObserver(updatePath);
     const mutationObserver = new MutationObserver(updatePath);
@@ -141,18 +178,31 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
       resizeObserver.disconnect();
       mutationObserver.disconnect();
     };
-  }, [
-    containerRef,
-    fromRef,
-    toRef,
-    curvature,
-    startXOffset,
-    startYOffset,
-    endXOffset,
-    endYOffset,
-    sameLevelCurve,
-    sameLevelThreshold,
-  ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updatePath,]);
+
+  // Memoize the SVG paths
+  const paths = useMemo(() => (
+    <>
+      {/* Background path for the beam shadow */}
+      <path
+        d={pathD}
+        stroke={pathColor}
+        strokeWidth={pathWidth}
+        strokeOpacity={pathOpacity}
+        strokeLinecap="round"
+      />
+      
+      {/* Animated gradient path */}
+      {showLight && <path
+        d={pathD}
+        strokeWidth={pathWidth}
+        stroke={`url(#${id})`}
+        strokeOpacity="1"
+        strokeLinecap="round"
+      />}
+    </>
+  ), [pathD, pathColor, pathWidth, pathOpacity, id, showLight]);
 
   return (
     <svg
@@ -166,26 +216,10 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
       )}
       viewBox={`0 0 ${svgDimensions.width} ${svgDimensions.height}`}
     >
-      {/* Background path for the beam shadow */}
-      <path
-        d={pathD}
-        stroke={pathColor}
-        strokeWidth={pathWidth}
-        strokeOpacity={pathOpacity}
-        strokeLinecap="round"
-      />
-      
-      {/* Animated gradient path */}
-      <path
-        d={pathD}
-        strokeWidth={pathWidth}
-        stroke={`url(#${id})`}
-        strokeOpacity="1"
-        strokeLinecap="round"
-      />
+      {paths}
       
       {/* Gradient definition */}
-      <defs>
+      {showLight && <defs>
         <motion.linearGradient
           id={id}
           gradientUnits="userSpaceOnUse"
@@ -195,17 +229,22 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
             y1: "0%",
             y2: "0%",
           }}
-          animate={{
+          animate={isInView ? {
             x1: gradientCoordinates.x1,
             x2: gradientCoordinates.x2,
             y1: gradientCoordinates.y1,
             y2: gradientCoordinates.y2,
+          } : {
+            x1: "0%",
+            x2: "0%",
+            y1: "0%",
+            y2: "0%",
           }}
           transition={{
             delay,
             duration,
             ease: [0.16, 1, 0.3, 1],
-            repeat: Infinity,
+            repeat: isInView ? Infinity : 0,
             repeatDelay: 0,
           }}
         >
@@ -214,7 +253,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
           <stop offset="32.5%" stopColor={gradientStopColor} />
           <stop offset="90%" stopColor={gradientStopColor} stopOpacity="0" />
         </motion.linearGradient>
-      </defs>
+      </defs>}
     </svg>
   );
 };

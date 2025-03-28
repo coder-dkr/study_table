@@ -66,7 +66,7 @@ const SimpleChatBox = ({ className }: { className?: string }) => {
 
   return (
     <div className={cn(
-      "flex flex-col h-[325px] w-full max-w-md mx-auto p-4",
+      "flex flex-col h-auto sm:h-[325px]  max-w-md  mx-auto p-4",
       "bg-gray-50 rounded-xl border border-gray-100",
       className
     )}>
@@ -98,4 +98,7 @@ const SimpleChatBox = ({ className }: { className?: string }) => {
   );
 };
 
+// const SimpleChatBox = () => {
+// return <p>j</p>
+//  }
 export default SimpleChatBox;

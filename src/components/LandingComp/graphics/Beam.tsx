@@ -1,11 +1,8 @@
-"use client";
-
-import React, { forwardRef, useRef } from "react";
-
+import React, { forwardRef, useRef, useEffect, memo } from "react";
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
-const Icontton = forwardRef<
+const Icontton = memo(forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode }
 >(({ className, children }, ref) => {
@@ -20,9 +17,9 @@ const Icontton = forwardRef<
       {children}
     </div>
   );
-});
+}));
 
-const LastIcontton = forwardRef<
+const LastIcontton = memo(forwardRef<
 HTMLDivElement,
 { className?: string; children?: React.ReactNode }
 >(({ className, children }, ref) => {
@@ -37,11 +34,10 @@ HTMLDivElement,
       {children}
     </div>
   );
-});
+}));
 
 Icontton.displayName = "Icontton";
 LastIcontton.displayName = "LastIcontton";
-
 
 export function AnimatedBeamMultipleOutputDemo({
   className,
@@ -54,16 +50,49 @@ export function AnimatedBeamMultipleOutputDemo({
   const div3Ref = useRef<HTMLDivElement>(null);
   const div4Ref = useRef<HTMLDivElement>(null);
   const div5Ref = useRef<HTMLDivElement>(null);
+  const comporef = useRef<HTMLDivElement>(null);
+
+  // const [shouldshow,setShouldShow] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // setShouldShow(true)
+          console.log("Component is in view");
+        }
+        // else{
+        //   setShouldShow(false)
+        // }
+      },
+      { threshold: 0.5 }
+    );
+
+    const variable = comporef.current
+
+    if (variable) {
+      observer.observe(variable);
+    }
+
+    return () => {
+      if (variable) {
+        observer.unobserve(variable);
+      }
+    };
+  }, []);
 
   return (
     <div
       className={cn(
-        "relative flex h-[300px] w-full items-center justify-center overflow-hidden p-10",
+        "relative flex h-[300px]  items-center justify-center overflow-hidden sm:p-10 scale- sm:scale-100",
         className,
       )}
       ref={containerRef}
     >
-      <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-16">
+      <div
+        ref={comporef}
+        className="flex size-full max-w-lg flex-row items-stretch justify-between gap-2 sm:gap-16"
+      >
         <div className="flex flex-col justify-center gap-9">
           <Icontton ref={div1Ref}>
             JEE/NEET Exam
@@ -91,21 +120,25 @@ export function AnimatedBeamMultipleOutputDemo({
         containerRef={containerRef}
         fromRef={div1Ref}
         toRef={div4Ref}
+        showLight={false}
       />
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={div2Ref}
         toRef={div4Ref}
+        showLight={false}
       />
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={div3Ref}
         toRef={div4Ref}
+        showLight={false}
       />
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={div4Ref}
         toRef={div5Ref}
+        showLight={false}
       />
     </div>
   );
