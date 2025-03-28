@@ -106,13 +106,16 @@ const MessageBubble = ({ text, sender, time, icon, color }: Message) => {
   );
 };
 
-const TypingIndicator = () => {
+const TypingIndicator = ({ isBot }: { isBot: boolean }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg mt-2 w-fit mr-auto"
+      className={cn(
+        "flex items-center gap-2 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg mt-2 w-fit",
+        isBot ? "mr-auto" : "ml-auto"
+      )}
     >
       <div className="flex space-x-1">
         <motion.div
@@ -139,28 +142,38 @@ const TypingIndicator = () => {
 export function ChatBoxDemo({ className }: { className?: string }) {
   const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
+  const [typingState, setTypingState] = useState<"bot" | "user" | null>(null);
 
   useEffect(() => {
     if (currentIndex < initialMessages.length) {
-      setIsTyping(true);
+      const nextMessage = initialMessages[currentIndex];
+      const isBot = nextMessage.sender === "bot";
       
+      // Show typing indicator for the appropriate sender
+      setTypingState(isBot ? "bot" : "user");
+
       const typingTimer = setTimeout(() => {
-        setIsTyping(false);
+        setTypingState(null);
         
         const messageTimer = setTimeout(() => {
-          // Add new message
-          const newMessages = [...visibleMessages, initialMessages[currentIndex]];
-          // Keep only the last 3 messages
+          const newMessages = [...visibleMessages, nextMessage];
           const updatedMessages = newMessages.slice(-3);
           setVisibleMessages(updatedMessages);
           setCurrentIndex(prev => prev + 1);
-        }, 500); // Short delay after typing completes
+        }, 500);
 
         return () => clearTimeout(messageTimer);
-      }, initialMessages[currentIndex].delay || 1500);
+      }, nextMessage.delay || 1500);
 
       return () => clearTimeout(typingTimer);
+    } else {
+      // Restart the conversation after 8 seconds
+      const restartTimer = setTimeout(() => {
+        setVisibleMessages([]);
+        setCurrentIndex(0);
+      }, 8000);
+
+      return () => clearTimeout(restartTimer);
     }
   }, [currentIndex, visibleMessages]);
 
@@ -178,7 +191,8 @@ export function ChatBoxDemo({ className }: { className?: string }) {
           {visibleMessages.map((message) => (
             <MessageBubble key={message.id} {...message} />
           ))}
-          {isTyping && <TypingIndicator />}
+          {typingState === "bot" && <TypingIndicator isBot={true} />}
+          {typingState === "user" && <TypingIndicator isBot={false} />}
         </AnimatePresence>
       </div>
     </div>
