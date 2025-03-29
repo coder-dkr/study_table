@@ -1,12 +1,13 @@
 import AcademicOrbitals from "@/components/LandingComp/graphics/Orbitals"
 import {AnimatedBeamMultipleOutputDemo} from "@/components/LandingComp/graphics/Beam"
 import SimpleChatBox from "@/components/LandingComp/graphics/Chat"
+import { RoughNotation } from "react-rough-notation";
 
 const MainInfoContent = [
     {
         "id" : 1,
         "title" : <>Unlimited <span className="text-[#155DFC]">Practice</span> session</>,
-        "content": <>For topics and subjects you go through in your school and coaching every day, we create instant practice session specially made for your days need. <span className="font-semibold">Our innovative AI algorithm crafts batches of 20 questions, each accompanied by instant feedback and solutions - it's like having a Home tutor 24X7.</span></>,
+        "content": <>For topics and subjects you go through in your school and coaching every day, we create instant practice session specially made for your days need. <RoughNotation multiline={true} type="highlight" color="#CCE5FE" show={true}>Our innovative AI algorithm crafts batches of 20 questions, each accompanied by instant feedback and solutions - it's like having a Home tutor 24X7.</RoughNotation></>,
        "component": <SimpleChatBox />
     },
     {

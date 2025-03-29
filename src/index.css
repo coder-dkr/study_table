@@ -171,6 +171,7 @@ button {
 
 @theme {
   --animation-orbit-duration: 20s;
+ 
   
   @keyframes orbit {
     from {
@@ -187,6 +188,7 @@ button {
     }
   }
 }
+
 
 @layer components {
   .animate-orbit {

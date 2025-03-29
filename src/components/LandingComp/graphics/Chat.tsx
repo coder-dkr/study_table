@@ -98,7 +98,5 @@ const SimpleChatBox = ({ className }: { className?: string }) => {
   );
 };
 
-// const SimpleChatBox = () => {
-// return <p>j</p>
-//  }
+
 export default SimpleChatBox;

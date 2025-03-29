@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useEffect, memo } from "react";
+import React, { forwardRef, useRef, useEffect, memo ,useState} from "react";
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
@@ -52,18 +52,18 @@ export function AnimatedBeamMultipleOutputDemo({
   const div5Ref = useRef<HTMLDivElement>(null);
   const comporef = useRef<HTMLDivElement>(null);
 
-  // const [shouldshow,setShouldShow] = useState(false)
+  const [shouldshow,setShouldShow] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // setShouldShow(true)
-          console.log("Component is in view");
+          setShouldShow(true)
+          if(shouldshow)  console.log("Component is in view");
         }
-        // else{
-        //   setShouldShow(false)
-        // }
+        else{
+          setShouldShow(false)
+        }
       },
       { threshold: 0.5 }
     );
@@ -79,7 +79,7 @@ export function AnimatedBeamMultipleOutputDemo({
         observer.unobserve(variable);
       }
     };
-  }, []);
+  }, [shouldshow]);
 
   return (
     <div

@@ -5,6 +5,7 @@ import useScreen from "@/hooks/useScreen"
 import { useRef , useEffect} from "react";
 import { useInView } from "motion/react";
 import { Confetti, type ConfettiRef } from "@/components/magicui/confetti";
+import { RoughNotation } from "react-rough-notation";
 
 
 const PracticeBox = () => {
@@ -45,7 +46,9 @@ const PracticeBox = () => {
       <h1 className="instrument-sans-font text-3xl lg:text-[44px] font-semibold text-center max-w-[38rem]">
       Practice Previous Year 
       {isMobile && <br />}
-      Paper {isTablet && <br />} & Win Prices
+      Paper {isTablet && <br />}<RoughNotation type="underline" color="hotpink" strokeWidth={5} animationDelay={500} order="1" show={isInView && true}>
+            & Win Prices
+            </RoughNotation>{" "} 
       </h1>
 
       <p className="text-[#646464] text-base font-normal instrument-sans-font lg:text-[26px]">35 year JEE and NEET 15 year Boards paper</p>
