@@ -135,7 +135,7 @@ const SignUp = () => {
            <BlueButton
                 onClick={() => {
                   if(FormSteps[currentIndex].id === "exam" && !filledDetails) {
-                    setFilledDetails(true);
+                    setFilledDetails(false);
                   }
                   setCurrentIndex((p) => p + 1)}}
                 text="Next -&gt;"
