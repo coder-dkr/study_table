@@ -23,7 +23,9 @@ const SignIn = () => {
   }
 
   return (
-    <div className="px-6 py-9 flex flex-col items-center justify-center w-full">
+    <div className="px-6 py-9 flex flex-col items-center justify-center w-full relative">
+      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-3xl -left-10 -top-4 " />
+      <div className="absolute -z-1 w-48 h-48 bg-blue-100 blur-3xl right-0 bottom-2 " />
       <Header />
 
       <h1 className="absolute top-28 text-xl instrument-sans-font font-semibold">Login</h1>
