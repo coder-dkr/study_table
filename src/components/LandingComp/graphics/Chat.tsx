@@ -14,8 +14,8 @@ interface Message {
 const initialMessages: Message[] = [
   { id: "1", text: "Did you get the concept?", sender: "bot", delay: 1000 },
   { id: "3", text: "Yes, it's based on the principle of the maximum height of a projectile.", sender: "user", delay: 2000 },
-  { id: "2", text: "That's Correct", sender: "bot",  delay: 1000 },
-  { id: "4", text: "But I forgot the formula.", sender: "user",  delay: 1000 },
+  { id: "2", text: "That's Correct", sender: "bot",  delay: 2000 },
+  { id: "4", text: "But I forgot the formula.", sender: "user",  delay: 2000 },
   { id: "5", text: "Okay, Hmax=u²/2g or us²sin²θ/2g", sender: "bot",delay: 1500 ,image: "/images/diag.svg"  },
   { id: "6", text: "Let me calculate the answers", sender: "user", delay: 1500 },
   

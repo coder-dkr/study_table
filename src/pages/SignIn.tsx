@@ -26,8 +26,8 @@ const SignIn = () => {
     <div className="px-6 py-9 flex flex-col items-center justify-center w-full">
       <Header />
 
+      <h1 className="absolute top-28 text-xl instrument-sans-font font-semibold">Login</h1>
       <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl relative min-h-[100vh]">
-      <h1 className="relative -top-40 text-xl instrument-sans-font font-semibold">Login</h1>
         <div className="flex flex-col items-start w-full relative">
           <input
             id="admission"
@@ -83,7 +83,7 @@ const SignIn = () => {
               />
         </div>
         <p>
-          Don't have an account ? <Link to="/sign-up" className="text-blue-500" >Sign Up </Link>
+          Don't have an account ? <Link to="/sign-up" className="text-blue-500 hover:underline" >Sign Up </Link>
         </p>
       </div>
     </div>

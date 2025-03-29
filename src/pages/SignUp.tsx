@@ -1,3 +1,4 @@
+import ClassDetails from "@/components/AuthComp/ClassDetails";
 import Header from "@/components/Header";
 import BlueButton from "@/components/ui/BlueButton";
 import LightBlueButton from "@/components/ui/LightBlueButton";
@@ -16,6 +17,7 @@ const SignUp = () => {
     about: "",
   });
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [filledDetails, setFilledDetails] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setSignupForm((prev) => ({
@@ -59,6 +61,7 @@ const SignUp = () => {
     },
   ];
 
+
   const handleSignUp = () => {
 
   }
@@ -67,16 +70,22 @@ const SignUp = () => {
     <div className="px-6 py-9 flex flex-col items-center justify-center w-full">
       <Header />
 
+        <h1 className="absolute top-28 text-xl instrument-sans-font font-semibold">Sign Up</h1>
+
       <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl min-h-[100vh]">
         {currentIndex === (FormSteps.length - 1) && <button
-        className="inter-font absolute left-10 top-32"
+        className="inter-font absolute left-2 md:left-10 lg:left-60 top-28"
         onClick={() => setCurrentIndex((p) => p - 1)}
         >
           &lt;-- back
         </button>
         }
-        <h1 className="relative -top-40 text-xl instrument-sans-font font-semibold">Sign Up</h1>
-        <div className="flex flex-col items-start w-full relative">
+        {FormSteps[currentIndex].id === "exam" && !filledDetails &&
+        <div className="w-full scale-75 mt-10"> 
+        <ClassDetails />
+        </div>
+        }
+       {!filledDetails && FormSteps[currentIndex].id === "exam" ? filledDetails : !filledDetails && <div className="flex flex-col items-start w-full relative">
           <input
             id={FormSteps[currentIndex].id}
             value={
@@ -99,10 +108,10 @@ const SignUp = () => {
           >
             {FormSteps[currentIndex].label}
           </label>
-        </div>
+        </div>}
 
         <div className="w-full flex flex-col items-center gap-6 mt-24">
-          <div className="h-1.5 w-full bg-[#CCDBFE] relative overflow-hidden">
+          {!(currentIndex === (FormSteps.length - 1)) ? <div className="h-1.5 w-full bg-[#CCDBFE] relative overflow-hidden">
             <span
               style={{
                 width: `${(100 / FormSteps.length) * (currentIndex + 1)}%`,
@@ -110,6 +119,9 @@ const SignUp = () => {
               className="h-1.5 absolute top-0 left-0 bg-[#155DFC] transition-all duration-200"
             />
           </div>
+          :
+          <p>Happy Onboarding!!</p>
+          }
           {!(currentIndex === (FormSteps.length - 1)) ?
              
           <div className="inter-font flex items-center justify-between w-full mt-3">
@@ -119,7 +131,11 @@ const SignUp = () => {
               text="&lt;- Previous"
             />
            <BlueButton
-                onClick={() => setCurrentIndex((p) => p + 1)}
+                onClick={() => {
+                  if(FormSteps[currentIndex].id === "exam" && !filledDetails) {
+                    setFilledDetails(true);
+                  }
+                  setCurrentIndex((p) => p + 1)}}
                 text="Next -&gt;"
               />
           </div>
@@ -128,9 +144,10 @@ const SignUp = () => {
            }
         </div>
         <p className="mt-10">
-         Already have an account ? <Link to="/sign-in" className="text-blue-500" >Sign In </Link>
+         Already have an account ? <Link to="/sign-in" className="text-blue-500 hover:underline" >Sign In </Link>
         </p>
       </div>
+
     </div>
   );
 };
