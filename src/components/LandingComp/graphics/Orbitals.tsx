@@ -30,7 +30,7 @@ const AcademicOrbitals = memo(() => {
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     const varibale = componentRef.current

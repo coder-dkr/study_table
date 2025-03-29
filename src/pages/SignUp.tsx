@@ -68,6 +68,14 @@ const SignUp = () => {
       <Header />
 
       <div className="w-full flex flex-col justify-center items-center gap-10 flex-1 max-w-xl min-h-[100vh]">
+        {currentIndex === (FormSteps.length - 1) && <button
+        className="inter-font absolute left-10 top-32"
+        onClick={() => setCurrentIndex((p) => p - 1)}
+        >
+          &lt;-- back
+        </button>
+        }
+        <h1 className="relative -top-40 text-xl instrument-sans-font font-semibold">Sign Up</h1>
         <div className="flex flex-col items-start w-full relative">
           <input
             id={FormSteps[currentIndex].id}
@@ -99,28 +107,25 @@ const SignUp = () => {
               style={{
                 width: `${(100 / FormSteps.length) * (currentIndex + 1)}%`,
               }}
-              className="h-1.5 absolute top-0 left-0 bg-[#155DFC]"
+              className="h-1.5 absolute top-0 left-0 bg-[#155DFC] transition-all duration-200"
             />
           </div>
+          {!(currentIndex === (FormSteps.length - 1)) ?
+             
           <div className="inter-font flex items-center justify-between w-full mt-3">
             <LightBlueButton
               disabled={currentIndex === 0}
               onClick={() => setCurrentIndex((p) => p - 1)}
               text="&lt;- Previous"
             />
-            {(currentIndex === (FormSteps.length - 1)) ?
-             (
-              <BlueButton onClick={handleSignUp} text="Sign Up" />
-             )
-            :
-              (
-                <BlueButton
+           <BlueButton
                 onClick={() => setCurrentIndex((p) => p + 1)}
                 text="Next -&gt;"
               />
-              )
-          }
           </div>
+          :
+           <BlueButton onClick={handleSignUp} text="Sign Up" />
+           }
         </div>
         <p className="mt-10">
          Already have an account ? <Link to="/sign-in" className="text-blue-500" >Sign In </Link>

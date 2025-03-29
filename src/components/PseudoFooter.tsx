@@ -37,7 +37,7 @@ const PseudoFooter = () => {
                Carfted 
             </RoughNotation>{" "}
             for your all <br />
-            <RoughNotation multiline={true} type="highlight" color="#155DFC15" strokeWidth={4} animationDelay={500} show={isInView && true}>
+            <RoughNotation multiline={true} type="highlight" color="yellow" strokeWidth={4} animationDelay={500} show={isInView && true}>
             academic needs
             </RoughNotation>
            

@@ -46,12 +46,15 @@ const InfoContent = () => {
          <h2 className="text-[22px] lg:text-4xl font-semibold instrument-sans-font">
             {info.title}
           </h2>
+          <div className={`mt-6 ${isDesktop ? 'hidden' : 'block w-auto'}`}>
+          {info.component}
+         </div>
           <p className="text-[#7B7B7B] text-sm leading-[20.94px] lg:leading-8.5 font-normal instrument-sans-font lg:text-[22px] lg:max-w-xl">
             {info.content}
           </p>
          </div>
 
-         <div className={`mt-6 ${!isDesktop ? 'lg:hidden  w-auto' : 'hidden lg:block h-[300px]  w-[500px]'}`}>
+         <div className={`mt-6 ${!isDesktop ? 'hidden  w-auto' : 'hidden lg:block h-[300px]  w-[500px]'}`}>
           {info.component}
          </div>
         </div>
